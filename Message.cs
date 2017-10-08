@@ -36,7 +36,7 @@ namespace joshyy.Email {
         public MailHost mailHost; 
         public NetworkCredential cred;
         
-		public Message(MailHost mailHost, NetworkCredential cred) {
+        public Message(MailHost mailHost, NetworkCredential cred) {
             this.mailHost=mailHost;
             this.cred=cred;         
         }
@@ -56,21 +56,27 @@ namespace joshyy.Email {
         public void Send(string from, string[] to, string[] cc, string[] bcc, string subject, string body, bool isHtml, MailPriority mailPri, string[] attachments) {
             System.Net.Mail.MailMessage msg = new MailMessage();                        
             msg.From = new MailAddress(from);
-            foreach(var t in to){                
+            foreach(var t in to) {                
                 msg.To.Add(t);
             }
-            foreach(var c in cc){
-                msg.CC.Add(c);
+            if (cc != null && cc.Length > 0) {
+                foreach(var c in cc) {
+                    msg.CC.Add(c);
+                }
             }
-            foreach(var b in bcc){
-                msg.Bcc.Add(b);
+            if (bcc != null && bcc.Length > 0) {
+                foreach(var b in bcc) {
+                    msg.Bcc.Add(b);
+                }
             }
             msg.Subject = subject;
             msg.Body = body;
             msg.Priority = mailPri;
             msg.IsBodyHtml = isHtml;
-            foreach(var att in attachments){
-                msg.Attachments.Add(new Attachment(att));
+            if (attachments != null && attachments.Length > 0) {
+                foreach(var att in attachments) {
+                    msg.Attachments.Add(new Attachment(att));
+                }
             }
             Send(msg);
         }
