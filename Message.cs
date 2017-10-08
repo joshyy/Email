@@ -81,7 +81,7 @@ namespace joshyy.Email {
             Send(msg);
         }
 
-		public void Send(MailMessage msg) {
+	public void Send(MailMessage msg) {
             SmtpClient client = new SmtpClient(mailHost.Host); 
             client.Port = mailHost.Port;         
             client.EnableSsl = mailHost.EnableSsl;
